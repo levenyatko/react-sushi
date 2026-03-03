@@ -7,16 +7,18 @@ import Checkout from "./components/Checkout.jsx";
 
 function App() {
   return (
-    <>
-      <UserProgressContextProvider>
-        <CartContextProvider>
-          <Header />
-          <Meals />
-          <Cart/>
-          <Checkout/>
-        </CartContextProvider>
-      </UserProgressContextProvider>
-    </>
+      <div className="min-h-screen bg-white text-gray-900">
+          <UserProgressContextProvider>
+              <CartContextProvider>
+                  <Header />
+                  <div className="max-w-6xl mx-auto px-4">
+                      <Meals />
+                      <Cart/>
+                      <Checkout/>
+                  </div>
+              </CartContextProvider>
+          </UserProgressContextProvider>
+      </div>
   );
 }
 

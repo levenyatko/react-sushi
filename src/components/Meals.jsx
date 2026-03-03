@@ -6,17 +6,21 @@ const requestConfig = {};
 
 export default function Meals() {
 
-    const {data: meals, error, isLoading} = useHttp('http://localhost:3000/meals', requestConfig, []);
+    const {data: menuData, error, isLoading} = useHttp('http://localhost:3000/menu', requestConfig, []);
 
     if (isLoading) {
-        return <p className="center">Loading...</p>;
+        return <p className="text-center text-sm text-gray-600 py-8">Loading...</p>;
     }
 
     if (error) {
         return <Error title="Failed to fetch meals" message={error.message} />
     }
 
-    return <ul id="meals">
-        {meals.map(meal => <MealItem key={meal.id} meal={meal} />)}
-    </ul>;
+    const meals = menuData.items ?? [];
+
+    return (
+        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 my-8">
+            {meals.map(meal => <MealItem key={meal.id} meal={meal} />)}
+        </ul>
+    );
 }

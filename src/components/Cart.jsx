@@ -20,28 +20,32 @@ export default function Cart() {
         userProgressContext.showCheckout();
     }
 
-    return <Modal className="cart"
-                  open={userProgressContext.progress === 'cart'}
-                  onClose={ userProgressContext.progress === 'cart' ? handleCloseCart : null}
+    return (
+        <Modal
+            open={userProgressContext.progress === 'cart'}
+            onClose={ userProgressContext.progress === 'cart' ? handleCloseCart : null}
         >
-        <h2>Your Cart</h2>
-        <ul>
-            {cartContext.items.map(item => (
-                <CartItem
-                    key={item.id}
-                    name={item.name}
-                    price={item.price}
-                    quantity={item.quality}
-                    onInrease={() => cartContext.addItem(item)}
-                    onDecrease={() => cartContext.removeItem(item.id)}
-                />
-            )
-            )}
-        </ul>
-        <p>Total: {currencyFormatter.format(cartTotal)}</p>
-        <p className="modal-actions">
-            <Button textOnly onClick={handleCloseCart}>Close</Button>
-            { cartContext.items.length > 0 && <Button onClick={handleShowCheckout}>Go to checkout</Button>}
-        </p>
-    </Modal>;
+            <h2 className="text-lg font-semibold mb-4">Your Cart</h2>
+            <ul className="divide-y divide-gray-200 mb-4">
+                {cartContext.items.map(item => (
+                    <CartItem
+                        key={item.id}
+                        name={item.name}
+                        price={item.price}
+                        quantity={item.quality}
+                        onInrease={() => cartContext.addItem(item)}
+                        onDecrease={() => cartContext.removeItem(item.id)}
+                    />
+                ))}
+            </ul>
+            <p className="flex items-center justify-between mt-2 text-sm">
+                <span className="text-gray-600">Total</span>
+                <span className="font-medium">{currencyFormatter.format(cartTotal)}</span>
+            </p>
+            <div className="mt-6 flex justify-end gap-2">
+                <Button textOnly onClick={handleCloseCart}>Close</Button>
+                { cartContext.items.length > 0 && <Button onClick={handleShowCheckout}>Go to checkout</Button>}
+            </div>
+        </Modal>
+    );
 }

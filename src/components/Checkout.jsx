@@ -48,10 +48,10 @@ export default function Checkout() {
     }
 
     let actions = (
-        <>
+        <div className="mt-6 flex justify-end gap-2">
             <Button type="button" textOnly onClick={handleCloseCheckout}>Close</Button>
             <Button>Confirm</Button>
-        </>
+        </div>
     );
 
     if (isSending) {
@@ -59,34 +59,39 @@ export default function Checkout() {
     }
 
     if (data && !error) {
-        return <Modal open={userProgressContext.progress === 'checkout'} onClose={handleCloseCheckout}>
-            <h2>Success!</h2>
-            <p>Thank you for your order!</p>
-            <p>Your order number is: #12233</p>
-            <p>We will get back to you with more details via email within the next few minutes</p>
-            <p className="modal-actions">
-                <Button textOnly onClick={handleCloseCheckout}>Ok</Button>
-            </p>
-        </Modal>
+        return (
+            <Modal open={userProgressContext.progress === 'checkout'} onClose={handleCloseCheckout}>
+                <h2 className="text-lg font-semibold mb-2">Success!</h2>
+                <p className="text-sm text-gray-700">Thank you for your order!</p>
+                <p className="text-sm text-gray-700">Your order number is: #12233</p>
+                <p className="text-sm text-gray-700">We will get back to you with more details via email within the next few minutes</p>
+                <div className="mt-6 flex justify-end">
+                    <Button textOnly onClick={handleCloseCheckout}>Ok</Button>
+                </div>
+            </Modal>
+        )
     }
 
-    return <Modal open={userProgressContext.progress === 'checkout'} onClose={handleCloseCheckout}>
-        <form action={formAction}>
-            <h2>Checkout</h2>
-            <p>Total Amount: { currencyFormatter.format(cartTotal) }</p>
-            <Input label="Full Name" type="text" id="name" />
-            <Input label="Email" type="email" id="email" />
-            <Input label="Street" type="text" id="street" />
-            <div className="control-row">
-                <Input label="Postal Code" type="text" id="postal-code" />
-                <Input label="City" type="text" id="city" />
-            </div>
+    return (
+        <Modal open={userProgressContext.progress === 'checkout'} onClose={handleCloseCheckout}>
+            <form action={formAction} className="space-y-4">
+                <h2 className="text-lg font-semibold">Checkout</h2>
+                <p className="text-sm flex items-center justify-between">
+                    <span className="text-gray-600">Total Amount</span>
+                    <span className="font-medium">{ currencyFormatter.format(cartTotal) }</span>
+                </p>
+                <Input label="Full Name" type="text" id="name" />
+                <Input label="Email" type="email" id="email" />
+                <Input label="Street" type="text" id="street" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <Input label="Postal Code" type="text" id="postal-code" />
+                    <Input label="City" type="text" id="city" />
+                </div>
 
-            { error && <Error title="Failed to submit order" message={error.message} />}
+                { error && <Error title="Failed to submit order" message={error.message} />}
 
-            <p className="modal-actions">
                 {actions}
-            </p>
-        </form>
-    </Modal>;
+            </form>
+        </Modal>
+    );
 }
