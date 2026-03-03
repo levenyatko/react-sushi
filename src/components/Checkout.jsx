@@ -20,7 +20,7 @@ export default function Checkout() {
     const cartContext = useContext(CartContext);
     const userProgressContext = useContext(UserProgressContext);
 
-    const {data, error, sendRequest, clearData} = useHttp('http://localhost:3000/orders', requestConfig);
+    const {data, error, sendRequest, clearData} = useHttp(`${import.meta.env.VITE_API_URL}/orders`, requestConfig);
 
     const cartTotal = cartContext.items.reduce((total, item) => total + item.quality * item.price, 0);
 
