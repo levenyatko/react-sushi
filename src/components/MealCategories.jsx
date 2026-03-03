@@ -50,13 +50,8 @@ export default function MealCategories({ groupedMeals, categoryRefs }) {
             {groupedMeals.map(category => (
                 <li key={category.id}>
                     <Button
-                        textOnly
+                        textOnly={activeCategoryId !== category.id}
                         onClick={() => handleScrollToCategory(category.id)}
-                        classNames={`${
-                            activeCategoryId === category.id
-                                ? "text-white bg-brand hover:bg-brand-medium border border-brand"
-                                : ""
-                        }`}
                     >
                         {category.name}
                     </Button>

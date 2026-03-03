@@ -23,10 +23,14 @@ export default function Meals() {
 
     const categories = menuData.categories ?? [];
     const items = menuData.items ?? [];
+    const tags = menuData.tags ?? [];
 
     const groupedMeals = categories.map(category => ({
         ...category,
-        meals: items.filter(item => item.category_id === category.id)
+        meals: items.filter(item => item.category_id === category.id).map(meal => ({
+            ...meal,
+            tags: meal.tags.map(tagId => tags.find(t => t.id === tagId)?.name).filter(Boolean)
+        }))
     })).filter(category => category.meals.length > 0);
 
     return (
