@@ -1,5 +1,8 @@
 # Food Ordering App
 
+![React](https://img.shields.io/badge/-React-red?logo=react&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-blue?logo=tailwindcss&logoColor=white)
+
 A food ordering application built with React, Vite, and Tailwind CSS. This project features a seamless shopping cart experience, real-time checkout process, and persistent configuration management.
 
 ## 🚀 Features
@@ -72,11 +75,3 @@ A food ordering application built with React, Vite, and Tailwind CSS. This proje
    npm run dev
    ```
    The application will be available at `http://localhost:5173`.
-
----
-
-## ✅ TODO
-
-- [ ] Fix page reload issue during checkout submission.
-- [ ] Implement order history/saving verification.
-- [ ] Add order ID retrieval and display in the success modal.

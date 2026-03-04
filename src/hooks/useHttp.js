@@ -6,7 +6,9 @@ async function sendHttpRequest(url, config) {
     const resData = await response.json();
 
     if (!response.ok) {
-        throw new Error( resData.message || 'Something went wrong!');
+        throw new Error(
+            resData.message || 'Something went wrong, failed to send request.'
+        );
     }
 
     return resData;
@@ -15,7 +17,7 @@ async function sendHttpRequest(url, config) {
 export default function useHttp(url, config, initialData = null) {
     const [data, setData] = useState(initialData);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState();
 
     function clearData() {
         setData(initialData);
@@ -36,13 +38,14 @@ export default function useHttp(url, config, initialData = null) {
             }
             setIsLoading(false);
         },
-        [url, config]);
+        [url, config]
+    );
 
     useEffect(() => {
-        if (!config || config && (!config.method || config.method === 'GET')) {
-            sendRequest('');
+        if ((config && (config.method === 'GET' || !config.method)) || !config) {
+            sendRequest();
         }
-    }, [sendRequest, config])
+    }, [sendRequest, config]);
 
     return {
         data,

@@ -51,7 +51,7 @@ export default function Checkout() {
 
     const timeSlots = generateTimeSlots();
 
-    const {data, error, isLoading, sendRequest} = useHttp(`${import.meta.env.VITE_API_URL}/orders`, requestConfig);
+    const {data, error, sendRequest, clearData} = useHttp(`${import.meta.env.VITE_API_URL}/orders`, requestConfig);
 
     const cartTotal = cartContext.items.reduce((total, item) => total + item.quality * item.price, 0);
 
@@ -59,11 +59,8 @@ export default function Checkout() {
         cartContext.hideCheckout();
     }
 
-    function handleSubmit(event) {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-        const customerData = Object.fromEntries(formData.entries());
+    async function checkoutAction(prevState, fd) {
+        const customerData = Object.fromEntries(fd.entries());
 
         const orderItems = cartContext.items.map(item => ({
             id: item.id,
@@ -79,21 +76,25 @@ export default function Checkout() {
                 paymentMethod
             }
         }));
+
+        return { success: true };
+    }
+
+    const [formState, formAction, isSending] = useActionState(checkoutAction,null);
+
+    function handleFinish() {
+        cartContext.clearCart();
+        handleCloseCheckout();
+        clearData();
     }
 
     if (data && !error) {
         return (
-            <Modal open={cartContext.progress === 'checkout'} onClose={() => {
-                cartContext.clearCart();
-                handleCloseCheckout();
-            }} className="p-0 overflow-hidden">
+            <Modal open={cartContext.progress === 'checkout'} onClose={handleFinish} className="p-0 overflow-hidden">
                 <div className="flex flex-col h-full max-h-[80vh]">
                     <div className="p-6 border-b flex justify-between items-center">
                         <h2 className="text-2xl font-bold">Success!</h2>
-                        <button onClick={() => {
-                            cartContext.clearCart();
-                            handleCloseCheckout();
-                        }} className="text-gray-400 hover:text-gray-600 cursor-pointer">
+                        <button onClick={handleFinish} className="text-gray-400 hover:text-gray-600 cursor-pointer">
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
@@ -101,14 +102,11 @@ export default function Checkout() {
                     </div>
                     <div className="p-6 overflow-y-auto flex-1 space-y-4">
                         <p className="text-lg font-medium text-gray-900">Thank you for your order!</p>
-                        <p className="text-gray-600">Your order number is: <span className="font-bold text-gray-900">#{(Math.random() * 10000).toFixed(0)}</span></p>
+                        <p className="text-gray-600">Your order number is: <span className="font-bold text-gray-900">#{data.id}</span></p>
                         <p className="text-gray-600 italic">We will get back to you with more details via email within the next few minutes</p>
                     </div>
                     <div className="p-6 border-t bg-gray-50 flex justify-end">
-                        <Button onClick={() => {
-                            cartContext.clearCart();
-                            handleCloseCheckout();
-                        }} classNames="px-8 py-2.5">Ok</Button>
+                        <Button onClick={handleFinish} classNames="px-8 py-2.5">Ok</Button>
                     </div>
                 </div>
             </Modal>
@@ -121,7 +119,7 @@ export default function Checkout() {
             onClose={cartContext.progress === 'checkout' ? handleCloseCheckout : null}
             className="p-0 overflow-hidden"
         >
-            <form onSubmit={handleSubmit} className="flex flex-col h-full max-h-[90vh]">
+            <form action={formAction} method="POST" className="flex flex-col h-full max-h-[90vh]">
                 <div className="p-6 border-b flex justify-between items-center">
                     <h2 className="text-2xl font-bold">Checkout</h2>
                     <button type="button" onClick={handleCloseCheckout} className="text-gray-400 hover:text-gray-600 cursor-pointer">
@@ -256,8 +254,8 @@ export default function Checkout() {
                 <div className="p-6 border-t bg-gray-50 flex justify-end gap-3">
                     {error && <Error title="Failed to submit order" message={error} />}
 
-                    <Button disabled={isLoading} classNames="px-10 py-2.5 text-base">
-                        {isLoading ? 'Submitting...' : 'Confirm Order'}
+                    <Button disabled={isSending} classNames="px-10 py-2.5 text-base">
+                        {isSending ? 'Submitting...' : 'Confirm Order'}
                     </Button>
                 </div>
             </form>

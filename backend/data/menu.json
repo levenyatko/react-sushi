@@ -1,0 +1,182 @@
+{
+  "categories": [
+    { "id": 1, "name": "Futomaki" },
+    { "id": 2, "name": "Uramaki" },
+    { "id": 3, "name": "Nigiri" },
+    { "id": 4, "name": "Sets" },
+    { "id": 5, "name": "Drinks" }
+  ],
+  "tags": [
+    { "id": 1, "name": "New" },
+    { "id": 2, "name": "Top" },
+    { "id": 3, "name": "Spicy" },
+    { "id": 4, "name": "Vegetarian" }
+  ],
+  "items": [
+    {
+      "id": 1,
+      "category_id": 1,
+      "name": "Futomaki Classic Salmon",
+      "description": "Rice, nori, Norwegian salmon, avocado, wakame, cucumber.",
+      "allergens": ["Gluten", "Raw fish", "Sesame seeds"],
+      "tags": [2],
+      "weight": "220g",
+      "price": 42,
+      "image": "photo-1579871494447-9811cf80d66c?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "id": 2,
+      "category_id": 1,
+      "name": "Futomaki Tuna Spicy",
+      "description": "Tuna, spicy mayo, cucumber, spring onion, rice, nori.",
+      "allergens": ["Raw fish", "Sesame seeds", "Egg"],
+      "tags": [3],
+      "weight": "210g",
+      "price": 45,
+      "image": "photo-1582450871972-ab5ca641643d?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "id": 3,
+      "category_id": 1,
+      "name": "Futomaki Vegan",
+      "description": "Rice, nori, avocado, Bianco salad, pear, kanpyo, cucumber.",
+      "allergens": ["Gluten", "Sesame seeds"],
+      "tags": [4],
+      "weight": "200g",
+      "price": 38,
+      "image": "photo-1617196034183-421b4917c92d?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "id": 4,
+      "category_id": 2,
+      "name": "Uramaki Philadelphia",
+      "description": "Salmon, cream cheese, avocado, cucumber, sesame seeds.",
+      "allergens": ["Raw fish", "Lactose", "Sesame seeds"],
+      "tags": [2],
+      "weight": "240g",
+      "price": 48,
+      "image": "photo-1611143669185-af224c5e3252?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "id": 5,
+      "category_id": 2,
+      "name": "Uramaki California",
+      "description": "Surimi, avocado, cucumber, mayo, tobiko.",
+      "allergens": ["Crustaceans", "Egg", "Gluten"],
+      "tags": [],
+      "weight": "230g",
+      "price": 44,
+      "image": "photo-1559467144-045588a4c9dd?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "id": 6,
+      "category_id": 2,
+      "name": "Uramaki Ebi Ten",
+      "description": "Tempura shrimp, spicy mayo, cucumber, unagi sauce.",
+      "allergens": ["Crustaceans", "Gluten", "Egg"],
+      "tags": [1, 3],
+      "weight": "250g",
+      "price": 52,
+      "image": "photo-1562158074-9274457d56c7?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "id": 7,
+      "category_id": 3,
+      "name": "Nigiri Salmon",
+      "description": "Traditional nigiri with fresh Norwegian salmon.",
+      "allergens": ["Raw fish"],
+      "tags": [2],
+      "weight": "60g",
+      "price": 18,
+      "image": "photo-1611143669185-af224c5e3252?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "id": 8,
+      "category_id": 3,
+      "name": "Nigiri Tuna",
+      "description": "Traditional nigiri with fresh yellowfin tuna.",
+      "allergens": ["Raw fish"],
+      "tags": [2],
+      "weight": "60g",
+      "price": 22,
+      "image": "photo-1607301406283-bc2a1385cc8f?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "id": 9,
+      "category_id": 3,
+      "name": "Nigiri Eel",
+      "description": "Grilled eel with unagi sauce on rice.",
+      "allergens": ["Fish", "Soybean", "Gluten"],
+      "tags": [],
+      "weight": "65g",
+      "price": 25,
+      "image": "photo-1534475472741-24a9d35c593a?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "id": 10,
+      "category_id": 4,
+      "name": "Small Sushi Set",
+      "description": "6x Futomaki, 4x Uramaki, 2x Nigiri.",
+      "allergens": ["Raw fish", "Gluten", "Sesame seeds"],
+      "tags": [1],
+      "weight": "450g",
+      "price": 85,
+      "image": "photo-1553621042-f6e147245754?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "id": 11,
+      "category_id": 4,
+      "name": "Medium Sushi Set",
+      "description": "12x Futomaki, 8x Uramaki, 4x Nigiri.",
+      "allergens": ["Raw fish", "Gluten", "Sesame seeds", "Lactose"],
+      "tags": [2],
+      "weight": "850g",
+      "price": 155,
+      "image": "photo-1579584425555-c3ce17fd4351?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "id": 12,
+      "category_id": 4,
+      "name": "Party Sushi Set",
+      "description": "24x Futomaki, 16x Uramaki, 8x Nigiri, 8x Hosomaki.",
+      "allergens": ["Raw fish", "Gluten", "Sesame seeds", "Lactose", "Crustaceans"],
+      "tags": [1, 2],
+      "weight": "1600g",
+      "price": 290,
+      "image": "photo-1512132411229-c30391241dd8?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "id": 13,
+      "category_id": 5,
+      "name": "Mango Lemonade",
+      "description": "Refreshing mango-flavored lemonade.",
+      "allergens": ["Mango"],
+      "tags": [],
+      "weight": "300ml",
+      "price": 15,
+      "image": "photo-1513558161293-cdaf765ed2fd?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "id": 14,
+      "category_id": 5,
+      "name": "Green Tea",
+      "description": "Traditional Japanese green tea.",
+      "allergens": [],
+      "tags": [],
+      "weight": "250ml",
+      "price": 10,
+      "image": "photo-1563444029209-177d33a44d81?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+      "id": 15,
+      "category_id": 5,
+      "name": "Asahi Beer",
+      "description": "Classic Japanese lager.",
+      "allergens": ["Gluten"],
+      "tags": [],
+      "weight": "330ml",
+      "price": 18,
+      "image": "photo-1586999768265-24af89630739?q=80&w=1000&auto=format&fit=crop"
+    }
+  ]
+}
