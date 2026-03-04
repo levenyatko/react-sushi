@@ -5,24 +5,24 @@ import { ShoppingCart } from "lucide-react";
 import logoImg from '../assets/logo.png';
 import Button from "./UI/Button.jsx";
 import CartContext from "../store/CartContext.jsx";
-import UserProgressContext from "../store/UserProgressContext.jsx";
+import AppContext from "../store/AppContext.jsx";
 
 export default function Header() {
     const cartContext = useContext(CartContext);
-    const userProgressContext = useContext(UserProgressContext);
+    const { restaurant } = useContext(AppContext);
 
     const totalCartItems = cartContext.items.reduce((total, item) => total + item.quality, 0);
 
     function handleShowCart() {
-        userProgressContext.showCart();
+        cartContext.showCart();
     }
 
     return (
         <header className="sticky top-0 z-10 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b">
             <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                    <img src={logoImg} alt="Panda sushi" className="h-8 object-contain" />
-                    <h1 className="text-l font-bold tracking-tight">Panda Sushi</h1>
+                    <img src={logoImg} alt={restaurant.name} className="h-8 object-contain" />
+                    <h1 className="text-l font-bold tracking-tight">{restaurant.name}</h1>
                 </div>
                 <Button textOnly onClick={handleShowCart}>
                     <ShoppingCart className="w-4 h-4" />

@@ -2,13 +2,19 @@ import {createContext, useReducer} from 'react';
 
 const CartContext = createContext({
     items: [],
-    addItem: (item) => {},
+    addItem: (item, quantity = 1) => {},
     removeItem: (id) => {},
     clearCart: () => {},
+    progress: '',
+    showCart: () => {},
+    hideCart: () => {},
+    showCheckout: () => {},
+    hideCheckout: () => {},
 });
 
 function cartReducer(state, action) {
     if (action.type === 'ADD_ITEM') {
+        const quantityToAdd = action.quantity ?? 1;
         const existingItemIndex = state.items.findIndex(
             item => item.id === action.item.id
         );
@@ -20,19 +26,21 @@ function cartReducer(state, action) {
 
             updatedItems[existingItemIndex] = {
                 ...existingItem,
-                quality: existingItem.quality + 1
+                quality: existingItem.quality + quantityToAdd
             };
         } else {
             updatedItems.push({
                 ...action.item,
-                quality: 1
+                quality: quantityToAdd
             });
         }
         return {
             ...state,
             items: updatedItems,
         };
-    } else if (action.type === 'REMOVE_ITEM') {
+    }
+
+    if (action.type === 'REMOVE_ITEM') {
         const existingItemIndex = state.items.findIndex(
             item => item.id === action.id
         );
@@ -61,18 +69,27 @@ function cartReducer(state, action) {
         };
     }
 
+    if (action.type === 'SET_PROGRESS') {
+        return {
+            ...state,
+            progress: action.progress
+        };
+    }
+
     return state;
 }
 
 export function CartContextProvider({ children }) {
     const [cart, dispatchCartAction ] = useReducer(cartReducer, {
         items: [],
+        progress: '',
     })
 
-    function addItem(item) {
+    function addItem(item, quantity = 1) {
         dispatchCartAction({
             type: 'ADD_ITEM',
             item,
+            quantity
         });
     }
 
@@ -89,11 +106,44 @@ export function CartContextProvider({ children }) {
         })
     }
 
+    function showCart() {
+        dispatchCartAction({
+            type: 'SET_PROGRESS',
+            progress: 'cart'
+        });
+    }
+
+    function hideCart() {
+        dispatchCartAction({
+            type: 'SET_PROGRESS',
+            progress: ''
+        });
+    }
+
+    function showCheckout() {
+        dispatchCartAction({
+            type: 'SET_PROGRESS',
+            progress: 'checkout'
+        });
+    }
+
+    function hideCheckout() {
+        dispatchCartAction({
+            type: 'SET_PROGRESS',
+            progress: ''
+        });
+    }
+
     const cartContext = {
         items: cart.items,
         addItem,
         removeItem,
-        clearCart
+        clearCart,
+        progress: cart.progress,
+        showCart,
+        hideCart,
+        showCheckout,
+        hideCheckout,
     }
 
     return <CartContext.Provider value={cartContext}>{children}</CartContext.Provider>

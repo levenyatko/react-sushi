@@ -1,8 +1,11 @@
-import {currencyFormatter, getImageUrl} from "../util/formatting.js";
+import {formatCurrency, getImageUrl} from "../util/formatting.js";
 import CartItemQuantity from "./CartItemQuantity.jsx";
 import Button from "./UI/Button.jsx";
+import {useContext} from "react";
+import AppContext from "../store/AppContext.jsx";
 
 export default function MealItemDetails({ meal, quantity, setQuantity, isAdded, handleAddToCart, handleCloseModal}) {
+    const { restaurant } = useContext(AppContext);
     const imagePath = getImageUrl(meal.image);
 
     return (
@@ -42,7 +45,7 @@ export default function MealItemDetails({ meal, quantity, setQuantity, isAdded, 
 
                 <div className="mt-auto border-t pt-6">
                     <div className="flex items-center justify-between mb-4">
-                        <span className="text-2xl font-bold">{currencyFormatter.format(meal.price)}</span>
+                        <span className="text-2xl font-bold">{formatCurrency(meal.price, restaurant.currency)}</span>
                         <CartItemQuantity
                             quantity={quantity}
                             handleIncrement={() => { setQuantity(prev => prev + 1) }}
@@ -53,7 +56,7 @@ export default function MealItemDetails({ meal, quantity, setQuantity, isAdded, 
                         onClick={handleAddToCart}
                         classNames={`w-full justify-center py-3 text-base ${isAdded ? "bg-green-600 border-green-600 hover:bg-green-700" : ""}`}
                     >
-                        {isAdded ? "Added to Cart" : `Add ${quantity} to Cart — ${currencyFormatter.format(meal.price * quantity)}`}
+                        {isAdded ? "Added to Cart" : `Add ${quantity} to Cart — ${formatCurrency(meal.price * quantity, restaurant.currency)}`}
                     </Button>
                 </div>
             </div>

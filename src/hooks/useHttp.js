@@ -27,7 +27,7 @@ export default function useHttp(url, config, initialData = null) {
             try {
                 let resConfig = {...config};
                 if (data && resConfig.method === 'POST') {
-                    resConfig.data = data;
+                    resConfig.body = data;
                 }
                 const resData = await sendHttpRequest(url, resConfig);
                 setData(resData);

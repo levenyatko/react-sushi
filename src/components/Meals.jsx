@@ -4,6 +4,7 @@ import useHttp from "../hooks/useHttp.js";
 
 import MealItem from "./MealItem.jsx";
 import Error from "./Error.jsx";
+import Loader from "./Loader.jsx";
 import MealCategories from "./MealCategories.jsx";
 
 const requestConfig = {};
@@ -14,7 +15,7 @@ export default function Meals() {
     const { data: menuData, error, isLoading } = useHttp(`${import.meta.env.VITE_API_URL}/menu`, requestConfig, []);
 
     if (isLoading) {
-        return <p className="text-center text-sm text-gray-600 py-8">Loading...</p>;
+        return <Loader message="Loading meals..." />;
     }
 
     if (error) {

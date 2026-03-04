@@ -1,21 +1,21 @@
 import { useContext, useState, useEffect } from "react";
 
-import {currencyFormatter, getImageUrl} from "../util/formatting.js";
+import {formatCurrency, getImageUrl} from "../util/formatting.js";
 import Button from "./UI/Button.jsx";
 import CartContext from "../store/CartContext.jsx";
+import AppContext from "../store/AppContext.jsx";
 import Modal from "./UI/Modal.jsx";
 import MealItemDetails from "./MealItemDetails.jsx";
 
 export default function MealItem({ meal }) {
     const cartContext = useContext(CartContext);
+    const { restaurant } = useContext(AppContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const [isAdded, setIsAdded] = useState(false);
 
     function handleAddToCart() {
-        for (let i = 0; i < quantity; i++) {
-            cartContext.addItem(meal);
-        }
+        cartContext.addItem(meal, quantity);
         setIsAdded(true);
     }
 
@@ -23,7 +23,7 @@ export default function MealItem({ meal }) {
         if (isAdded) {
             const timer = setTimeout(() => {
                 setIsAdded(false);
-            }, 2000);
+            }, 1000);
 
             return () => clearTimeout(timer);
         }
@@ -63,7 +63,7 @@ export default function MealItem({ meal }) {
                         </div>
 
                         <div className="mt-auto pt-4 flex items-center justify-between">
-                            <p className="text-sm font-bold text-gray-900">{currencyFormatter.format(meal.price)}</p>
+                            <p className="text-sm font-bold text-gray-900">{formatCurrency(meal.price, restaurant.currency)}</p>
                             <Button 
                                 onClick={(e) => {
                                     e.stopPropagation();
